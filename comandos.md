@@ -19,7 +19,11 @@
   Agrega el enlace al archivo JavaScript de Bootstrap en el mismo archivo, justo antes del cierre del body
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' %>
 
+# CRUD
+  rails db:rollback para revertir las migraciones 
+
 # helpers y comandos 
+  <img src="<%= image_path('nombre_de_la_imagen.jpg') %>" alt="Texto alternativo" class="imagen-destacada" width="200" height="150">
 
 # devise
   bundle add devise
@@ -108,30 +112,109 @@
 </div >
 
 # modelo
-  <div id="modelo 1 a N">
-    
-    rails g scaffold (nombre del modelo) (atributos name age:integer description:text date:date)
-    rails g migration Add()To() ():references
+  <div id="modelo investigador 1 a N">
+    rails generate scaffold Investigador nombre:string
+    rails db:migrate
+    Agregamos migración para relacionar modelos.
+      rails g migration AddUsersToInvestigador user:references
+    #app/models/user.rb
+      has_many :investigador
+    #app/models/investigador.rb
+      belongs_to :user
+    <app/models/investigacion.rb>
+      class Investigacion < ApplicationRecord
+        has_and_belongs_to_many :investigadores
+      end
+    <app/models/investigador.rb>
+    class Investigador < ApplicationRecord
+      has_and_belongs_to_many :investigaciones
+    end
+    <div id="union de modelos">
+      rails generate migration CreateInvestigacionesInvestigadores investigacion:references investigador:references
+      rails db:migrate
+      <app/models/investigaciones_investigadores.rb>
+      class InvestigacionesInvestigadores < ApplicationRecord
+        belongs_to :investigacion
+        belongs_to :investigador
+      end
+   </div>
+  </div>
+
+  <div id="modelo Investigacion na n y 1 a N">
+    rails generate scaffold Investigacion name:string date:integer title:string resume:text
     rails db:migrate
   </div>
+      
+  <div id="app/controllers/investigacion_controller.rb Agregamos asociación al momento de crear al usuario">
+      def create
+        @investigacion = Investigacion.new(investigacion_params)
+        @investigacion.user = current_user # Asegúrate de que current_user esté configurado correctamente
+        respond_to do |format|
+        if @investigacion.save
+          format.html { redirect_to investigacion_url(@investigacion), notice: "Investigacion was successfully created." }
+          format.json { render :show, status: :created, location: @investigacion }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @investigacion.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+    private
+    def investigacion_params
+      params.require(:investigacion).permit(:name, :date, :title, :resume, :date)
+    end
+  </div>
+   
+  <div id="Dejaremos que no sea necesario conectarse para ver la investigacion"> 
+    #app/controllers/investigacion_controller.rb
+      before_action :authenticate_user!, except: [:index, :show]
+    Solo el dueño del blog debe ser capaz de editar y borrar.
+    Deshabilitamos la vista de los botones de borrar y editar si el usuario no es el dueño
+    <div id="app/views/investigacion/show.html.erb">
+      <%= link_to "Back to ()", ()_path %>
+      <% if user_signed_in? %>
+      <% if current_user.id == @().user_id %>
+      <%= link_to "Edit this ()", edit_()_path(@()) %> |
+      <%= button_to "Destroy this ()", @(), method: :delete %>
+      <% end %>
+      <% end %>
+    </div>
+    Al ingresar un usuario debe ser redirigido hacia la vista index de ()
+    Agregamos navegación por el navbar para el usuario.
+  </div>
   
-  <div id="modelo N a N">
+  <div id="modelo publicacion 1 a N">
+    rails generate scaffold publicacion  name:string date:integer title:string resume:text
+    rails db:migrate
 
   </div>
-  <div id="comentario y reacciones ">
+
+  <div id="comentario  ">
+   
+  </div>
+  <div id="reacciones ">
+     rails g model Reaction kind publicaciones:references user:references
 
   </div>
+
+# claves y pruebas unitarias
+
+# recuperar contraseña
+
+# usuarios y accesos
+  <roles> 
+
+# faker
 
 # borrado en cascada
 
 # anidando recursos 
 
-# usuarios y accesos
-<roles> 
+# pruebas unitarias
 
-# claves y pruebas unitarias
+# active storage
 
-# recuperar contraseña
+# S3
 
 # capibara 
 
@@ -141,11 +224,7 @@
 
 # pagy
 
-# faker
-
-# S3
-
-# active storage
+# eliminar actualizar agregar 
 
 # bootstrap con gemas 
   <div>yarn (gestor de dependencias JS ) 

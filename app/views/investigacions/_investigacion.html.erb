@@ -1,0 +1,28 @@
+<div id="<%= dom_id investigacion %>" class="card">
+  <div class="card-body">
+    <h5 class="card-title">Investigacion Details</h5>
+
+    <p class="card-text">
+      <strong>Name:</strong>
+      <%= investigacion.name %>
+    </p>
+
+    <p class="card-text">
+      <strong>Date:</strong>
+      <%= investigacion.date %>
+    </p>
+
+    <p class="card-text">
+      <strong>Title:</strong>
+      <%= investigacion.title %>
+    </p>
+
+    <p class="card-text">
+      <strong>Resume:</strong>
+      <%= investigacion.resume %>
+    </p>
+
+    <%= link_to "Back to Investigaciones", investigaciones_path, class: "btn btn-secondary" %>
+  </div>
+</div>
+

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :publicacions
+  resources :investigacions
+  resources :investigadors
   get 'home/index'
   
   devise_for :users, controllers: {

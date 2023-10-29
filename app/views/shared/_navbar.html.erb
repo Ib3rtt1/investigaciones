@@ -1,15 +1,24 @@
-<nav class="navbar navbar-expand-lg  bg-secondary ">
+<nav class="navbar navbar-expand-lg  bg-info">
   <div class="container-fluid">
-    <%= link_to 'Navbar', root_path, class: 'navbar-brand p-2' %>
-    
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" id="navbarNav">
-      <%= link_to 'Home', root_path, class: 'nav-link p-1 ' %>
-    
+      <button type="button" class="border border-black p1 m-1" disabled aria-label="">
+        <%= link_to 'Home', root_path, class: 'nav-link  p-1 ' %>
+      </button>
+      <button type="button" class="border border-black  p-1 m-1" disabled aria-label="">
+        <%= link_to 'investigador', investigadors_path, class: 'nav-link p-1 ' %>
+      </button>
+      <button type="button" class="border border-black  p-1 m-1" disabled aria-label="">
+        <%= link_to 'investigaciones', investigacions_path, class: 'nav-link p-1 ' %>
+      </button>
+      <button type="button" class="border border-black  p-1 m-1" disabled aria-label="">
+        <%= link_to 'publicaciones', publicacions_path, class: 'nav-link p-1 ' %>
+      </button>
+            
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
           

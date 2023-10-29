@@ -1,0 +1,20 @@
+<div class="container">
+  <p class="alert alert-success"><%= notice %></p>
+
+  <h1 class="mt-4">Investigadors</h1>
+
+  <div id="investigadors">
+    <% @investigadors.each do |investigador| %>
+      <div class="card mt-3">
+        <div class="card-body">
+          <%= render investigador %>
+          <p>
+            <%= link_to "Show this investigador", investigador, class: "btn btn-primary" %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= link_to "New investigador", new_investigador_path, class: "btn btn-success mt-3" %>
+</div>

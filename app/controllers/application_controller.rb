@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name,  ])
     devise_parameter_sanitizer.permit(:account_update, keys: [:name,  ])
   end
+  # donde quieres enviarlo depues de registrarse
   def after_sign_in_path_for(resource)
-    posts_path  donde quieres enviarlo depues de registrarse
+    publicacions_path  
   end
 end

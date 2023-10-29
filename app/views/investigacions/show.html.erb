@@ -1,0 +1,16 @@
+<div class="container">
+  <p class="alert alert-success"><%= notice %></p>
+
+  <%= render @investigacion %>
+
+  <div class="mt-3">
+    <%= link_to "Edit this investigacion", edit_investigacion_path(@investigacion), class: "btn btn-primary" %>
+    
+    <% if user_signed_in? && current_user.id == @investigacion.user_id %>
+      <%= link_to "Edit this investigacion", edit_investigacion_path(@investigacion), class: "btn btn-primary" %>
+      <%= button_to "Destroy this investigacion", @investigacion, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    <% end %>
+
+    <%= link_to "Back to investigacions", investigacions_path, class: "btn btn-secondary" %>
+  </div>
+</div>

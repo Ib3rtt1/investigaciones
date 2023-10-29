@@ -1,0 +1,20 @@
+<div class="container">
+  <p class="alert alert-success"><%= notice %></p>
+
+  <h1 class="mt-4">Investigacions</h1>
+
+  <div id="investigacions">
+    <% @investigacions.each do |investigacion| %>
+      <div class="card mt-3">
+        <div class="card-body">
+          <%= render investigacion %>
+          <p>
+            <%= link_to "Show this investigacion", investigacion, class: "btn btn-primary" %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= link_to "New investigacion", new_investigacion_path, class: "btn btn-success mt-3" %>
+</div>

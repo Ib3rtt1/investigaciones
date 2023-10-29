@@ -10,9 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_07_222412) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_09_165749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "investigaciones_investigadores", force: :cascade do |t|
+    t.bigint "investigacion_id", null: false
+    t.bigint "investigador_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["investigacion_id"], name: "index_investigaciones_investigadores_on_investigacion_id"
+    t.index ["investigador_id"], name: "index_investigaciones_investigadores_on_investigador_id"
+  end
+
+  create_table "investigacions", force: :cascade do |t|
+    t.string "name"
+    t.integer "date"
+    t.string "title"
+    t.text "resume"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "investigadores_investigaciones", id: false, force: :cascade do |t|
+    t.bigint "investigador_id"
+    t.bigint "investigacion_id"
+    t.index ["investigacion_id"], name: "index_investigadores_investigaciones_on_investigacion_id"
+    t.index ["investigador_id"], name: "index_investigadores_investigaciones_on_investigador_id"
+  end
+
+  create_table "investigadors", force: :cascade do |t|
+    t.string "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_investigadors_on_user_id"
+  end
+
+  create_table "publicacions", force: :cascade do |t|
+    t.string "name"
+    t.integer "date"
+    t.string "title"
+    t.text "resume"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +69,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_07_222412) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "investigaciones_investigadores", "investigacions"
+  add_foreign_key "investigaciones_investigadores", "investigadors"
+  add_foreign_key "investigadores_investigaciones", "investigacions"
+  add_foreign_key "investigadores_investigaciones", "investigadors"
+  add_foreign_key "investigadors", "users"
 end

@@ -1,0 +1,12 @@
+<div class="container">
+  <p class="alert alert-success"><%= notice %></p>
+
+  <%= render @investigador %>
+
+  <div class="mt-3">
+    <%= link_to "Edit this investigador", edit_investigador_path(@investigador), class: "btn btn-primary" %> |
+    <%= link_to "Back to Investigadors", investigadors_path, class: "btn btn-secondary" %>
+
+    <%= button_to "Destroy this investigador", @investigador, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  </div>
+</div>
